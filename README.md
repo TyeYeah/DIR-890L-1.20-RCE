@@ -27,17 +27,20 @@ The `$cmd` concatenates `$ipv4addr` directly into command without filtering, and
 			set($vsvr_entry.":".$InDeX."/wakeonlan_mac", $wolmac);
 		}
 ```
-so there may exist `RCE`(remote command execution) in Virtual Server related pages: /VirtualServer.html
+So When you set `$description` (corresponding to virtual server name) as `"Wake-On-Lan"`, there may exist `RCE`(remote command execution) in Virtual Server related pages: `/VirtualServer.html`.
 
 ## Exploit
 It requires authentication, so log in first.
 ![Login](pic/login.png)
 ![Home](pic/home.png)
+
 Then visit [Virtual Server page (/VirtualServer.html)](http://192.168.0.1/VirtualServer.html) which is inaccessible through panel.
-![Virtual Server](pic/virtualverver.png)
+![Virtual Server](pic/virtualserver.png)
+
 Add a rule named `Wake-On-Lan`.
 ![Add rule](pic/addrule.png)
 ![Rule results](pic/ruleres.png)
+
 Start `burpsuite` before click `Save` button and capture the following packet:
 ![packet](pic/packet.png)
 ```h
@@ -76,12 +79,16 @@ Cookie: uid=ZeNYZag3Gw
 	</soap:Body>
 </soap:Envelope>
 ```
+
 Prepare a http server then:
 ![python server](pic/pythonserver.png)
+
 Use `Repeater` module to test `RCE`(remote command execution):
 ![burpsuite](pic/burp.png)
+
 And we get:
 ![result](pic/res.png)
+
 Test commands and read `/etc/shadow`:
 ![command ls /busy/box](pic/burpls.png)
 ![result](pic/resls.png)
