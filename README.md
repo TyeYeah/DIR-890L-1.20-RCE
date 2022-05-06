@@ -1,9 +1,9 @@
-# D-Link DIR-890L 1.20 RCE
-```s
-Current Firmware Version: 	1.20, Wed 27 Sep 2017
-Current Firmware Date: 	2017-09-27 15:40:00
-```
+# D-Link DIR-890L RCE
+Affected: Versions <= v1.22B01 Hotfix (latest)
 Firmware: [Here](http://www.dlinktw.com.tw/techsupport/ProductInfo.aspx?m=DIR-890L)
+
+This model has reached the end of its life-cycle. The resources associated with these products have ceased their development and are no longer supported.
+D-Link Systems, Inc. recommends retiring these products and replacing them with products that receive firmware updates.
 
 ## Vulnerability
 In its firmware we can find a function `getWOLMAC` in `SetVirtualServerSettings.php`
@@ -34,14 +34,14 @@ It requires authentication, so log in first.
 ![Login](pic/login.png)
 ![Home](pic/home.png)
 
-Then visit [Virtual Server page (/VirtualServer.html)](http://192.168.0.1/VirtualServer.html) which is inaccessible through panel.
+- Then visit [Virtual Server page (/VirtualServer.html)](http://192.168.0.1/VirtualServer.html) which is inaccessible through panel.
 ![Virtual Server](pic/virtualserver.png)
 
-Add a rule named `Wake-On-Lan`.
+- Add a rule named `Wake-On-Lan`.
 ![Add rule](pic/addrule.png)
 ![Rule results](pic/ruleres.png)
 
-Start `burpsuite` before click `Save` button and capture the following packet:
+- Start `burpsuite` before click `Save` button and capture the following packet:
 ![packet](pic/packet.png)
 ```h
 POST /HNAP1/ HTTP/1.1
@@ -80,16 +80,16 @@ Cookie: uid=ZeNYZag3Gw
 </soap:Envelope>
 ```
 
-Prepare a http server then:
+- Prepare a http server then:
 ![python server](pic/pythonserver.png)
 
-Use `Repeater` module to test `RCE`(remote command execution):
+- Use `Repeater` module to test `RCE`(remote command execution):
 ![burpsuite](pic/burp.png)
 
-And we get:
+- And we get:
 ![result](pic/res.png)
 
-Test commands and read `/etc/shadow`:
+- Test commands injection and read `/etc/shadow`:
 ![command ls /busy/box](pic/burpls.png)
 ![result](pic/resls.png)
 ![command ls /busybox -al](pic/burplsal.png)
