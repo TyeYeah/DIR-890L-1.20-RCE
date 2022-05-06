@@ -1,5 +1,5 @@
 # D-Link DIR-890L RCE
-Affected: Versions <= v1.22B01 Hotfix (latest)
+Affected Version: <= v1.22B01 Hotfix (latest)
 
 Firmware: [Here](http://www.dlinktw.com.tw/techsupport/ProductInfo.aspx?m=DIR-890L)
 
@@ -31,7 +31,7 @@ The `$cmd` concatenates `$ipv4addr` directly into command without filtering, and
 So When you set `$description` (corresponding to virtual server name) as `"Wake-On-Lan"`, there may exist `RCE`(remote command execution) in Virtual Server related pages: `/VirtualServer.html`.
 
 ## Exploit
-It requires authentication, so log in first.
+- It requires authentication, so log in first.
 ![Login](pic/login.png)
 ![Home](pic/home.png)
 
@@ -82,7 +82,7 @@ Cookie: uid=ZeNYZag3Gw
 ```
 
 - Prepare a http server then:
-![python server](pic/pythonserver.png)
+	![python server](pic/pythonserver.png)
 
 - Use `Repeater` module to test `RCE`(remote command execution):
 ![burpsuite](pic/burp.png)
