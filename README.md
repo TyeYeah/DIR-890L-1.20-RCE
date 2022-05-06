@@ -81,8 +81,8 @@ Cookie: uid=ZeNYZag3Gw
 </soap:Envelope>
 ```
 
-- Prepare a http server then:
-	![python server](pic/pythonserver.png)
+- Prepare a http server then:  
+![python server](pic/pythonserver.png)
 
 - Use `Repeater` module to test `RCE`(remote command execution):
 ![burpsuite](pic/burp.png)
